@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Background from "./components/backgrounds/background";
-import Zodiac from "./components/backgrounds/zodiac/zodiac";
 
 interface IWindow {
   width: number;
