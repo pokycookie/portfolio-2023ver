@@ -30,6 +30,8 @@ function Zodiac(props: IProps) {
   const [dotArr, setDotArr] = useState<ICoord[]>([]);
   const [lineArr, setLineArr] = useState<ILinePath[]>([]);
   const [graph, setGraph] = useState<number[][]>([]);
+  const [dotInit, setDotInit] = useState<ICoord[]>([]);
+  const [lineInit, setLineInit] = useState<ILinePath[]>([]);
 
   const count = useRef(props.count ?? _random(10, 3));
 
@@ -52,9 +54,14 @@ function Zodiac(props: IProps) {
   }, [dotArr, graph]);
 
   useEffect(() => {
-    const tmpArr = _range(count.current).map<ICoord>(() => {
+    const tmpDotArr = _range(count.current).map<ICoord>(() => {
       return { x: _random(100), y: _random(100) };
     });
+
+    const tmpDotInit = _range(count.current).map<ICoord>(() => {
+      return { x: _random(100), y: _random(100) };
+    });
+
     const tmpGraph: number[][] = [];
     _range(count.current).forEach((i) => {
       const tmp = [];
@@ -67,8 +74,18 @@ function Zodiac(props: IProps) {
       }
       tmpGraph.push(tmp);
     });
-    setDotArr(tmpArr);
+
+    const tmpLineInit: ILinePath[] = [];
+    tmpDotInit.forEach((e, i, a) => {
+      tmpGraph[i].forEach((g) => {
+        tmpLineInit.push({ x1: e.x, y1: e.y, x2: a[g].x, y2: a[g].y });
+      });
+    });
+
+    setDotArr(tmpDotArr);
     setGraph(tmpGraph);
+    setDotInit(tmpDotInit);
+    setLineInit(tmpLineInit);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -84,12 +101,13 @@ function Zodiac(props: IProps) {
         <feGaussianBlur stdDeviation={props.blur ?? 0.15} />
       </filter>
       {dotArr.map((e, i) => {
+        const init = dotInit[i];
         return (
           <motion.circle
             key={i}
             fill="white"
             r="0.4"
-            initial={{ cx: 0, cy: 0 }}
+            initial={{ cx: init.x, cy: init.y }}
             animate={{ cx: e.x, cy: e.y }}
             transition={transition}
             filter="url(#gaussianBlur)"
@@ -97,12 +115,13 @@ function Zodiac(props: IProps) {
         );
       })}
       {lineArr.map((e, i) => {
+        const init = lineInit[i];
         return (
           <motion.line
             key={i}
             stroke="white"
             strokeWidth="0.1"
-            initial={{ x1: 0, y1: 0, x2: 0, y2: 0 }}
+            initial={{ x1: init.x1, y1: init.y1, x2: init.x2, y2: init.y2 }}
             animate={{ x1: e.x1, y1: e.y1, x2: e.x2, y2: e.y2 }}
             transition={transition}
             filter="url(#gaussianBlur)"
