@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { _random, _range } from "../../../lib/basic";
 import { useInterval } from "../../../lib/hooks";
 import { Transition, motion } from "framer-motion";
@@ -50,7 +50,6 @@ function Zodiac(props: IProps) {
       });
     });
     setLineArr(tmpArr);
-    console.log(dotArr);
   }, [dotArr, graph]);
 
   useEffect(() => {
@@ -97,7 +96,7 @@ function Zodiac(props: IProps) {
       animate={{ x: props.x ?? 0, y: props.y ?? 0 }}
       transition={{ duration: 10, ease: "linear" }}
     >
-      <filter id="gaussianBlur">
+      <filter id="zodiac--blur">
         <feGaussianBlur stdDeviation={props.blur ?? 0.15} />
       </filter>
       {dotArr.map((e, i) => {
@@ -110,7 +109,7 @@ function Zodiac(props: IProps) {
             initial={{ cx: init.x, cy: init.y }}
             animate={{ cx: e.x, cy: e.y }}
             transition={transition}
-            filter="url(#gaussianBlur)"
+            filter="url(#zodiac--blur)"
           />
         );
       })}
@@ -124,7 +123,7 @@ function Zodiac(props: IProps) {
             initial={{ x1: init.x1, y1: init.y1, x2: init.x2, y2: init.y2 }}
             animate={{ x1: e.x1, y1: e.y1, x2: e.x2, y2: e.y2 }}
             transition={transition}
-            filter="url(#gaussianBlur)"
+            filter="url(#zodiac--blur)"
           />
         );
       })}

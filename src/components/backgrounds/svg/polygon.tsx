@@ -71,7 +71,7 @@ function Polygon(props: IProps) {
 
   return (
     <svg viewBox="0 0 100 100" width={props.width ?? 0} height={props.height ?? 0}>
-      <filter id="gaussianBlur">
+      <filter id="polygon--blur">
         <feGaussianBlur stdDeviation={props.blur ?? 0.15} />
       </filter>
       {dotArr.map((e, i) => {
@@ -84,7 +84,7 @@ function Polygon(props: IProps) {
             initial={{ cx: init.x, cy: init.y }}
             animate={{ cx: e.x, cy: e.y }}
             transition={transition}
-            filter="url(#gaussianBlur)"
+            filter="url(#polygon--blur)"
           />
         );
       })}
@@ -98,7 +98,7 @@ function Polygon(props: IProps) {
             initial={{ x1: init.x1, y1: init.y1, x2: init.x2, y2: init.y2 }}
             animate={{ x1: e.x1, y1: e.y1, x2: e.x2, y2: e.y2 }}
             transition={transition}
-            filter="url(#gaussianBlur)"
+            filter="url(#polygon--blur)"
           />
         );
       })}
