@@ -1,21 +1,15 @@
-import { useEffect, useState } from "react";
-import Background from "./components/backgrounds/background";
-
-interface IWindow {
-  width: number;
-  height: number;
-}
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { RSetWindows } from "./redux";
+import MainPage from "./pages/main";
 
 function App() {
-  const [windows, setWindows] = useState<IWindow>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const dispatch = useDispatch();
 
   const resizeHandler = (e: UIEvent) => {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    setWindows({ width, height });
+    dispatch(RSetWindows({ width, height }));
   };
 
   useEffect(() => {
@@ -23,11 +17,12 @@ function App() {
     return () => {
       window.removeEventListener("resize", resizeHandler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="App">
-      <Background size={windows} />
+      <MainPage />
     </div>
   );
 }
