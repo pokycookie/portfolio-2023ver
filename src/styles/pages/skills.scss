@@ -1,0 +1,22 @@
+.skill__page {
+  width: 100%;
+  overflow-x: hidden;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 20px;
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(61, 245, 167, 1) 11.2%,
+    rgba(9, 111, 224, 1) 91.1%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .card__area {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 20px;
+  }
+}
