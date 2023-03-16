@@ -56,7 +56,7 @@ function AnimateText(props: IProps) {
 
   return (
     <div className={_className("animate__text", props.className)}>
-      <p style={{ color, fontSize }}>{text}</p>
+      <p style={{ color, fontSize, height: fontSize }}>{text}</p>
     </div>
   );
 }
