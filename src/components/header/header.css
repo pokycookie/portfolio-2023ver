@@ -9,6 +9,10 @@ header {
   padding: 0px 20px;
 }
 
+/* header:hover {
+  backdrop-filter: blur(30px);
+} */
+
 header .titleArea {
   display: flex;
   flex-direction: column;

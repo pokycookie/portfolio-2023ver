@@ -6,7 +6,6 @@ function Header() {
   const [isHidden, setIsHidden] = useState(false);
 
   const scrollHandler = () => {
-    console.log(window.scrollY);
     if (window.scrollY > 20) {
       setIsHidden(true);
     } else {
