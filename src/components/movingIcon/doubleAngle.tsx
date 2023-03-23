@@ -1,13 +1,18 @@
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
+import { _className } from "../../lib/basic";
 
-function DoubleAngle() {
+interface IProps {
+  className?: string;
+}
+
+function DoubleAngle(props: IProps) {
   const size = 25;
   const gap = size / 3;
 
   return (
-    <div className="icon" style={{ width: size, height: size * 2 }}>
+    <div className={_className("icon", props.className)} style={{ width: size, height: size * 2 }}>
       <motion.div
         initial={{ y: gap / 2 }}
         animate={{ y: [gap / 2, gap * 1.5, gap / 2] }}

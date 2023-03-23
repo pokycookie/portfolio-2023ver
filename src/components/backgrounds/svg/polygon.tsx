@@ -20,6 +20,8 @@ interface IProps {
   width?: number;
   height?: number;
   blur?: number;
+  color?: string;
+  thick?: number;
 }
 
 const transition = { duration: 10, ease: "linear" };
@@ -30,7 +32,9 @@ function Polygon(props: IProps) {
   const [dotInit, setDotInit] = useState<ICoord[]>([]);
   const [lineInit, setLineInit] = useState<ILinePath[]>([]);
 
-  const count = useRef(props.count ?? _random(15, 5));
+  const count = useRef(props.count ?? _random(10, 5));
+  const color = props.color ?? "white";
+  const thick = props.thick ?? 0.5;
 
   useInterval(() => {
     const tmpArr = _range(count.current).map<ICoord>(() => {
@@ -74,7 +78,7 @@ function Polygon(props: IProps) {
       <filter id="polygon--blur">
         <feGaussianBlur stdDeviation={props.blur ?? 0.15} />
       </filter>
-      {dotArr.map((e, i) => {
+      {/* {dotArr.map((e, i) => {
         const init = dotInit[i];
         return (
           <motion.circle
@@ -87,14 +91,14 @@ function Polygon(props: IProps) {
             filter="url(#polygon--blur)"
           />
         );
-      })}
+      })} */}
       {lineArr.map((e, i) => {
         const init = lineInit[i];
         return (
           <motion.line
             key={i}
-            stroke="white"
-            strokeWidth="0.1"
+            stroke={color}
+            strokeWidth={thick}
             initial={{ x1: init.x1, y1: init.y1, x2: init.x2, y2: init.y2 }}
             animate={{ x1: e.x1, y1: e.y1, x2: e.x2, y2: e.y2 }}
             transition={transition}
