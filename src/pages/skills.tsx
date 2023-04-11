@@ -16,12 +16,6 @@ const srcArr = [
   [srcTS, srcREACT, srcNODE],
 ];
 
-// const srcArr = imgArr.map((sub) => {
-//   return sub.map((e, i) => {
-//     return { src: e, id: i };
-//   });
-// });
-
 const btnVariants: Variants = {
   off: {
     opacity: 0,

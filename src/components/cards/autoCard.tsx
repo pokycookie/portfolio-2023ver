@@ -45,7 +45,7 @@ function AutoCard(props: IProps) {
         exit="exit"
       >
         <div className="card">
-          <img src={props.src} alt={props.alt ?? ""} width={270} draggable={false} />
+          <img src={props.src} alt={props.alt ?? ""} width="100%" draggable={false} />
         </div>
       </motion.div>
     </AnimatePresence>
