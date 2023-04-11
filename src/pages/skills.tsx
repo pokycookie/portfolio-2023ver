@@ -42,6 +42,7 @@ interface IProps {
 }
 
 function SkillPage(props: IProps) {
+  const [src, setSrc] = useState(srcArr[0]);
   const [srcIndex, setSrcIndex] = useState(0);
 
   const srcIndexHandler = (type: "inc" | "dec") => {
@@ -52,6 +53,10 @@ function SkillPage(props: IProps) {
     } else if (tmpIndex < 0) {
       tmpIndex = maxIndex;
     }
+    setSrc([]);
+    setTimeout(() => {
+      setSrc(srcArr[tmpIndex]);
+    }, 10);
     setSrcIndex(tmpIndex);
   };
 
@@ -69,7 +74,7 @@ function SkillPage(props: IProps) {
         >
           <FontAwesomeIcon icon={faAngleLeft} />
         </motion.button>
-        {srcArr[srcIndex].map((e, i) => {
+        {src.map((e, i) => {
           return <AutoCard key={i} src={e} delay={i * 0.2} />;
         })}
         <motion.button
