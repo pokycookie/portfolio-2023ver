@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import { shallowEqual, useSelector } from "react-redux";
 import AnimateText from "../components/animateText/animateText";
 import Background from "../components/backgrounds/background";
@@ -5,7 +7,6 @@ import Header from "../components/header/header";
 import DoubleAngle from "../components/movingIcon/doubleAngle";
 import { IReduxStore, IWindows } from "../redux";
 import "../styles/pages/main.scss";
-import { useEffect } from "react";
 
 const txt = [
   "안녕하세요!",
