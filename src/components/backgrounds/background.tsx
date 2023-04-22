@@ -1,51 +1,33 @@
-import { useEffect, useState } from "react";
-import Constellation from "./svg/constellation";
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
+import GooeyArea from "../gooeyEffect/gooeyArea";
+import BouncingBall from "./bouncingBall";
 import { _range } from "../../lib/basic";
-import "./background.css";
 
-interface ICoord {
-  x: number;
-  y: number;
-}
+const backgroundCSS = css({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  zIndex: -255,
+  width: "100%",
+  height: "100vh",
+  backgroundImage:
+    "linear-gradient(109.6deg, rgba(61, 245, 167, 1) 11.2%, rgba(9, 111, 224, 1) 91.1%)",
+  overflow: "hidden",
+});
 
-interface IProps {
-  size: { width: number; height: number };
-  divide?: number;
-}
+interface IProps {}
 
 function Background(props: IProps) {
-  const [area, setArea] = useState<ICoord[][]>([]);
-
-  useEffect(() => {
-    const width = 200;
-    const height = 200;
-    const countX = props.size.width / width;
-    const countY = props.size.height / height;
-    const tmpArea = _range(countY).map<ICoord[]>((y) => {
-      return _range(countX).map<ICoord>((x) => {
-        return { x: width * x, y: height * y };
-      });
-    });
-    setArea(tmpArea);
-  }, [props.size.height, props.size.width]);
-
   return (
-    <svg className="background" width={props.size.width} height={props.size.height}>
-      <rect x="0" y="0" width="100%" height="100%" fill="#1B1D20" />
-      {area.map((sub, i) => {
-        return sub.map((e, j) => {
-          return (
-            <Constellation
-              key={`${e}${j}`}
-              x={e.x}
-              y={e.y}
-              width={props.size.width / (props.divide ?? 1)}
-              height={props.size.height / (props.divide ?? 1)}
-            />
-          );
-        });
-      })}
-    </svg>
+    <div css={backgroundCSS}>
+      <GooeyArea>
+        {_range(15).map((_, i) => {
+          return <BouncingBall key={i} />;
+        })}
+      </GooeyArea>
+    </div>
   );
 }
 

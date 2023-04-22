@@ -1,6 +1,28 @@
+/** @jsxImportSource @emotion/react */
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import "./header.css";
+import { css } from "@emotion/react";
+
+const headerCSS = css({
+  width: "100%",
+  height: "130px",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  boxSizing: "border-box",
+  padding: "0px 20px",
+});
+
+const titleCSS = css({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  color: "white",
+  gap: "3px",
+});
 
 function Header() {
   const [isHidden, setIsHidden] = useState(false);
@@ -26,10 +48,11 @@ function Header() {
       animate={isHidden ? "off" : "on"}
       variants={{ on: { y: 0 }, off: { y: -130 } }}
       transition={{ ease: "easeInOut" }}
+      css={headerCSS}
     >
-      <motion.div className="titleArea">
-        <p>PORTFOLIO</p>
-        <p>2023ver</p>
+      <motion.div css={titleCSS}>
+        <p css={{ fontSize: "28px", fontWeight: "600" }}>PORTFOLIO</p>
+        <p css={{ fontSize: "13px", fontWeight: "300" }}>2023ver</p>
       </motion.div>
     </motion.header>
   );

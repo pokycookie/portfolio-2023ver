@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { RSetWindows } from "./redux";
 import MainPage from "./pages/main";
 import SkillPage from "./pages/skills";
+import Background from "./components/backgrounds/background";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
       <div className="page" ref={(e) => (EPages.current[1] = e)}>
         <SkillPage pagesRef={EPages} />
       </div>
+      <Background />
     </div>
   );
 }
