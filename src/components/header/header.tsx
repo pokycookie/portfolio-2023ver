@@ -47,7 +47,7 @@ function Header() {
     <motion.header
       animate={isHidden ? "off" : "on"}
       variants={{ on: { y: 0 }, off: { y: -130 } }}
-      transition={{ ease: "easeInOut" }}
+      transition={{ ease: "easeInOut", delay: 0.3 }}
       css={headerCSS}
     >
       <motion.div css={titleCSS}>

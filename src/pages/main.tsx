@@ -17,21 +17,6 @@ interface IProps {
 }
 
 function MainPage(props: IProps) {
-  // const wheelHandler = (e: WheelEvent) => {
-  //   if (e.deltaY > 0) {
-  //     e.preventDefault();
-  //     props.pagesRef.current[1]?.scrollIntoView({ behavior: "smooth", block: "start" });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("wheel", wheelHandler);
-  //   return () => {
-  //     window.removeEventListener("wheel", wheelHandler);
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   return (
     <div className="main__page">
       <Header />
