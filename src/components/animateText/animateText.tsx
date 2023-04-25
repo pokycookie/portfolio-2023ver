@@ -1,7 +1,8 @@
+/** @jsxImportSource @emotion/react */
+
 import { useEffect, useState } from "react";
 import { useInterval } from "../../lib/hooks";
-import { _className } from "../../lib/basic";
-import "./animateText.css";
+import { css } from "@emotion/react";
 
 interface IProps {
   text: string | string[];
@@ -9,7 +10,6 @@ interface IProps {
   interval?: number;
   fontSize?: number;
   color?: string;
-  className?: string;
 }
 
 function AnimateText(props: IProps) {
@@ -22,7 +22,9 @@ function AnimateText(props: IProps) {
   const interval = props.interval ?? 5000;
   const textSpeed = props.speed ?? 200;
   const textLength =
-    typeof props.text === "string" ? props.text.length : props.text[arrIndex].length;
+    typeof props.text === "string"
+      ? props.text.length
+      : props.text[arrIndex].length;
 
   useInterval(
     () => {
@@ -55,10 +57,16 @@ function AnimateText(props: IProps) {
   }, [props.text]);
 
   return (
-    <div className={_className("animate__text", props.className)}>
-      <p style={{ color, fontSize, height: fontSize }}>{text}</p>
-    </div>
+    <p css={[{ color, fontSize, lineHeight: `${fontSize + 10}px` }, textCSS]}>
+      {text}
+    </p>
   );
 }
+
+const textCSS = css({
+  padding: "10px",
+  borderRadius: "5px",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+});
 
 export default AnimateText;

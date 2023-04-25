@@ -1,4 +1,4 @@
-import { AnimatePresence, Variants, motion } from "framer-motion";
+import { Variants, motion } from "framer-motion";
 import "./card.css";
 import { _random } from "../../lib/basic";
 
@@ -6,6 +6,8 @@ interface IProps {
   src: string;
   delay?: number;
   alt?: string;
+  onClick?: () => void;
+  layoutId?: string;
 }
 
 function AutoCard(props: IProps) {
@@ -26,29 +28,28 @@ function AutoCard(props: IProps) {
     hover: {
       scale: 1.1,
     },
-    exit: {
-      y: -300,
-      opacity: 0,
-      rotate: _random(45, -45),
-    },
   };
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="auto__card vertical__card"
-        initial="off"
-        whileInView="on"
-        viewport={{ once: false, amount: 0.2 }}
-        variants={cardVariants}
-        whileHover="hover"
-        exit="exit"
-      >
-        <div className="card">
-          <img src={props.src} alt={props.alt ?? ""} width="100%" draggable={false} />
-        </div>
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      className="auto__card vertical__card"
+      initial="off"
+      whileInView="on"
+      viewport={{ once: false, amount: 0.2 }}
+      variants={cardVariants}
+      whileHover="hover"
+      layoutId={props.layoutId}
+      onClick={props.onClick}
+    >
+      <div className="card">
+        <img
+          src={props.src}
+          alt={props.alt ?? ""}
+          width="100%"
+          draggable={false}
+        />
+      </div>
+    </motion.div>
   );
 }
 

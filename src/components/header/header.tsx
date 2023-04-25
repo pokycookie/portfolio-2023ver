@@ -3,32 +3,15 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
-
-const headerCSS = css({
-  width: "100%",
-  height: "130px",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  boxSizing: "border-box",
-  padding: "0px 20px",
-});
-
-const titleCSS = css({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "flex-end",
-  color: "white",
-  gap: "3px",
-});
+import { useRefStore } from "../../store";
 
 function Header() {
   const [isHidden, setIsHidden] = useState(false);
 
+  const app = useRefStore((state) => state.app);
+
   const scrollHandler = () => {
-    if (window.scrollY > 20) {
+    if ((app?.scrollTop ?? 0) > 20) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
@@ -36,12 +19,13 @@ function Header() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
+    if (!app) return;
+    app.addEventListener("scroll", scrollHandler);
     return () => {
-      window.removeEventListener("scroll", scrollHandler);
+      app.removeEventListener("scroll", scrollHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [app]);
 
   return (
     <motion.header
@@ -57,5 +41,30 @@ function Header() {
     </motion.header>
   );
 }
+
+const headerCSS = css({
+  width: "100%",
+  height: "130px",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  boxSizing: "border-box",
+  padding: "0px 20px",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  zIndex: 255,
+  backdropFilter: "blur(3px)",
+});
+
+const titleCSS = css({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  color: "white",
+  gap: "3px",
+});
 
 export default Header;
