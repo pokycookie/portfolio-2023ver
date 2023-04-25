@@ -6,12 +6,9 @@ import { Fragment, ReactNode } from "react";
 const areaCSS = css({
   width: "100%",
   height: "100%",
-  position: "absolute",
-  left: 0,
-  top: 0,
   filter: "url(#gooey)",
   overflow: "hidden",
-  // pointerEvents: "none",
+  position: "relative",
 });
 
 interface IProps {
@@ -23,7 +20,7 @@ interface IProps {
 function GooeyArea(props: IProps) {
   return (
     <Fragment>
-      <svg width="0px" height="0px">
+      <svg width="0px" height="0px" css={{ display: "none" }}>
         <defs>
           <filter id="gooey">
             <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation={props.blur ?? 15} />

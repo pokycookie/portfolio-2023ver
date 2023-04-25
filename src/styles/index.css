@@ -12,6 +12,11 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+.App {
+  position: relative;
+  overflow: hidden;
+}
+
 .App > .page {
   width: calc(100vw - (100vw - 100%));
 }
