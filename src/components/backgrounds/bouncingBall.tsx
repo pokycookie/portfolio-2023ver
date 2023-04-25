@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from "react";
+import { useRef } from "react";
 import { _random } from "../../lib/basic";
 import { motion } from "framer-motion";
 
 function BouncingBall() {
-  const [size, setSize] = useState(_random(400, 100));
-  const [pos, setPos] = useState({ x: _random(100), y: _random(100) });
+  const size = useRef(_random(400, 100));
+  const pos = useRef({ x: _random(100), y: _random(100) });
 
   return (
     <motion.div
@@ -18,12 +18,12 @@ function BouncingBall() {
       }}
       transition={{ duration: _random(40, 20), repeat: Infinity }}
       css={{
-        width: size,
-        height: size,
+        width: size.current,
+        height: size.current,
         borderRadius: "50%",
         position: "absolute",
-        left: `${pos.x}%`,
-        top: `${pos.y}%`,
+        left: `${pos.current.x}%`,
+        top: `${pos.current.y}%`,
         backgroundColor: `hsla(${_random(360)}, 85%, 80%, 0.6)`,
       }}
     ></motion.div>
