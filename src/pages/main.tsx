@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
+import { useEffect, useRef } from "react";
 import AnimateText from "../components/animateText/animateText";
 import Header from "../components/header/header";
 import DoubleAngle from "../components/movingIcon/doubleAngle";
-import "../styles/pages/main.scss";
+import { useRefStore } from "../store";
+import { css } from "@emotion/react";
 
 const txt = [
   "안녕하세요!",
@@ -12,34 +14,62 @@ const txt = [
   "아래로 스크롤해서 저에 대해 더 알아보세요!",
 ];
 
-interface IProps {
-  pagesRef: React.MutableRefObject<null[] | HTMLDivElement[]>;
-}
+function MainPage() {
+  const pageREF = useRef<HTMLDivElement>(null);
 
-function MainPage(props: IProps) {
+  const pages = useRefStore((state) => state.pages);
+  const addPage = useRefStore((state) => state.addPage);
+
+  const toNextPage = () => {
+    pages["skill"]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    addPage("main", pageREF.current);
+  }, [pageREF, addPage]);
+
   return (
-    <div className="main__page">
+    <div className="main__page" css={mainCSS} ref={pageREF}>
       <Header />
       <AnimateText
-        className="main__page--text"
         text={txt}
         color="white"
         fontSize={60}
         speed={150}
         interval={2000}
       />
-      <div className="btn--area">
-        <div
-          className="down--btn"
-          onClick={() =>
-            props.pagesRef.current[1]?.scrollIntoView({ behavior: "smooth", block: "start" })
-          }
-        >
-          <DoubleAngle />
-        </div>
+      <div css={btnAreaCSS}>
+        <DoubleAngle onClick={toNextPage} />
       </div>
     </div>
   );
 }
+
+const mainCSS = css({
+  width: "100%",
+  height: "100vh",
+  overflow: " hidden",
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  boxSizing: "border-box",
+  padding: "20px 40px",
+});
+
+const btnAreaCSS = css({
+  width: "100%",
+  padding: "20px 0px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "absolute",
+  left: 0,
+  bottom: 0,
+  zIndex: 128,
+});
 
 export default MainPage;

@@ -1,36 +1,33 @@
-import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { RSetWindows } from "./redux";
+/** @jsxImportSource @emotion/react */
+
 import MainPage from "./pages/main";
 import SkillPage from "./pages/skills";
 import Background from "./components/backgrounds/background";
+import { useModalStore, useRefStore, useScrollStore } from "./store";
+import { useEffect, useRef } from "react";
 
 function App() {
-  const dispatch = useDispatch();
-  const EPages = useRef<null[] | HTMLDivElement[]>([]);
+  const scrollLock = useScrollStore((state) => state.scroll);
+  const modal = useModalStore((state) => state.modalID);
+  const setScroll = useScrollStore((state) => state.setScroll);
+  const setApp = useRefStore((state) => state.setApp);
 
-  const resizeHandler = (e: UIEvent) => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    dispatch(RSetWindows({ width, height }));
-  };
+  const appREF = useRef<HTMLDivElement>(null);
 
+  // Lock scroll when modal open
   useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
-    return () => {
-      window.removeEventListener("resize", resizeHandler);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setScroll(modal ? true : false);
+  }, [modal, setScroll]);
+
+  // Set app ref
+  useEffect(() => {
+    setApp(appREF.current);
+  }, [appREF, setApp]);
 
   return (
-    <div className="App">
-      <div className="page" ref={(e) => (EPages.current[0] = e)}>
-        <MainPage pagesRef={EPages} />
-      </div>
-      <div className="page" ref={(e) => (EPages.current[1] = e)}>
-        <SkillPage pagesRef={EPages} />
-      </div>
+    <div className="App" ref={appREF} css={{ overflow: scrollLock }}>
+      <MainPage />
+      <SkillPage />
       <Background />
     </div>
   );

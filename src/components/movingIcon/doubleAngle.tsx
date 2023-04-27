@@ -3,11 +3,11 @@
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
-import { _className } from "../../lib/basic";
 import { useEffect, useState } from "react";
+import { useRefStore } from "../../store";
 
 interface IProps {
-  className?: string;
+  onClick?: () => void;
 }
 
 function DoubleAngle(props: IProps) {
@@ -16,8 +16,10 @@ function DoubleAngle(props: IProps) {
 
   const [isHidden, setIsHidden] = useState(false);
 
+  const app = useRefStore((state) => state.app);
+
   const scrollHandler = () => {
-    if (window.scrollY > 100) {
+    if ((app?.scrollTop ?? 0) > 20) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
@@ -25,17 +27,18 @@ function DoubleAngle(props: IProps) {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", scrollHandler);
+    if (!app) return;
+    app.addEventListener("scroll", scrollHandler);
     return () => {
-      window.removeEventListener("scroll", scrollHandler);
+      app.removeEventListener("scroll", scrollHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [app]);
 
   return (
     <motion.div
-      className={_className("icon", props.className)}
-      css={{ width: size, height: size * 2 }}
+      onClick={props.onClick}
+      css={{ width: size, height: size * 2, cursor: "pointer" }}
       animate={isHidden ? { opacity: 0 } : { opacity: 1 }}
     >
       <motion.div

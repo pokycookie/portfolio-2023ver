@@ -1,26 +1,41 @@
 @import "./reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
 
 body {
   width: calc(100vw - (100vw - 100%));
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* overflow-x: hidden; */
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Pretendard", sans-serif;
+  /* overflow: hidden; */
 }
 
 .App {
-  position: relative;
-  overflow: hidden;
-}
-
-.App > .page {
   width: calc(100vw - (100vw - 100%));
+  height: 100vh;
+  position: relative;
+  /* overflow-x: hidden; */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #212a3e;
+}
+
+div::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+div::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #f0f0f0;
 }
