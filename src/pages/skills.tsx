@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useModalStore, useRefStore } from "../store";
 import { css } from "@emotion/react";
 import Modal from "../components/modal/modal";
+import { pageCSS } from "../styles/emotion";
 
 interface ISkill {
   src: string;
@@ -65,7 +66,7 @@ function SkillPage() {
   }, [pageREF, addPage]);
 
   return (
-    <div css={skillCSS} ref={pageREF}>
+    <div css={pageCSS} ref={pageREF}>
       <div css={cardAreaCSS}>
         <CardAreaBtn
           onClick={() => srcIndexHandler("dec")}
@@ -86,7 +87,7 @@ function SkillPage() {
           icon={faAngleRight}
         />
       </div>
-      <Modal modalID="skill" width="85%" height="80%" autoClose>
+      <Modal modalID="skill" CSS={{ width: "500px", height: "80%" }} autoClose>
         <div css={modalCSS}></div>
       </Modal>
     </div>
@@ -128,18 +129,6 @@ const btnVariants: Variants = {
     scale: 1.1,
   },
 };
-
-const skillCSS = css({
-  width: "100%",
-  height: "100vh",
-  overflow: "hidden",
-  boxSizing: "border-box",
-  padding: "20px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  position: "relative",
-});
 
 const cardAreaCSS = css({
   display: "grid",

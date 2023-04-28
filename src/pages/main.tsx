@@ -6,6 +6,7 @@ import Header from "../components/header/header";
 import DoubleAngle from "../components/movingIcon/doubleAngle";
 import { useRefStore } from "../store";
 import { css } from "@emotion/react";
+import { pageCSS } from "../styles/emotion";
 
 const txt = [
   "안녕하세요!",
@@ -21,7 +22,7 @@ function MainPage() {
   const addPage = useRefStore((state) => state.addPage);
 
   const toNextPage = () => {
-    pages["skill"]?.scrollIntoView({
+    pages["aboutMe"]?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -32,7 +33,7 @@ function MainPage() {
   }, [pageREF, addPage]);
 
   return (
-    <div className="main__page" css={mainCSS} ref={pageREF}>
+    <div css={[pageCSS, { padding: "20px 40px" }]} ref={pageREF}>
       <Header />
       <AnimateText
         text={txt}
@@ -47,18 +48,6 @@ function MainPage() {
     </div>
   );
 }
-
-const mainCSS = css({
-  width: "100%",
-  height: "100vh",
-  overflow: " hidden",
-  position: "relative",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  boxSizing: "border-box",
-  padding: "20px 40px",
-});
 
 const btnAreaCSS = css({
   width: "100%",

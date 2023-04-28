@@ -4,7 +4,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useRefStore } from "../../store";
+import { useScrollStore } from "../../store";
 
 interface IProps {
   onClick?: () => void;
@@ -15,25 +15,15 @@ function DoubleAngle(props: IProps) {
   const gap = size / 3;
 
   const [isHidden, setIsHidden] = useState(false);
+  const scroll = useScrollStore((state) => state.scroll);
 
-  const app = useRefStore((state) => state.app);
-
-  const scrollHandler = () => {
-    if ((app?.scrollTop ?? 0) > 20) {
+  useEffect(() => {
+    if (scroll.y > 20) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
     }
-  };
-
-  useEffect(() => {
-    if (!app) return;
-    app.addEventListener("scroll", scrollHandler);
-    return () => {
-      app.removeEventListener("scroll", scrollHandler);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [app]);
+  }, [scroll]);
 
   return (
     <motion.div

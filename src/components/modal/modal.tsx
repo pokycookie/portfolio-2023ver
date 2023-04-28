@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import { Interpolation, Theme, css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { useModalStore } from "../../store";
+import { useEffect } from "react";
 
 interface IProps {
   modalID: string;
@@ -13,6 +14,7 @@ interface IProps {
   width?: string | number;
   height?: string | number;
   bgColor?: string;
+  CSS?: Interpolation<Theme>;
 }
 
 function Modal(props: IProps) {
@@ -56,7 +58,11 @@ function Modal(props: IProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <motion.div css={modalCSS} initial={{ y: 300 }} animate={{ y: 0 }}>
+          <motion.div
+            css={[modalCSS, props.CSS]}
+            initial={{ y: 300 }}
+            animate={{ y: 0 }}
+          >
             {props.children}
           </motion.div>
         </motion.div>

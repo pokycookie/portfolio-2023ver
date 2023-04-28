@@ -3,29 +3,19 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
-import { useRefStore } from "../../store";
+import { useScrollStore } from "../../store";
 
 function Header() {
   const [isHidden, setIsHidden] = useState(false);
+  const scroll = useScrollStore((state) => state.scroll);
 
-  const app = useRefStore((state) => state.app);
-
-  const scrollHandler = () => {
-    if ((app?.scrollTop ?? 0) > 20) {
+  useEffect(() => {
+    if (scroll.y > 20) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
     }
-  };
-
-  useEffect(() => {
-    if (!app) return;
-    app.addEventListener("scroll", scrollHandler);
-    return () => {
-      app.removeEventListener("scroll", scrollHandler);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [app]);
+  }, [scroll]);
 
   return (
     <motion.header
