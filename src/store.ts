@@ -28,12 +28,16 @@ export const useRefStore = create<IRefState>((set) => ({
 }));
 
 interface IScrollState {
-  scroll: "auto" | "hidden";
-  setScroll: (lock: boolean) => void;
+  scroll: { x: number; y: number };
+  setScroll: (scroll: { x: number; y: number }) => void;
+  scrlLock: "auto" | "hidden";
+  setScrlLock: (lock: boolean) => void;
 }
 export const useScrollStore = create<IScrollState>((set) => ({
-  scroll: "auto",
-  setScroll: (lock) => set(() => ({ scroll: lock ? "hidden" : "auto" })),
+  scrlLock: "auto",
+  setScrlLock: (lock) => set(() => ({ scrlLock: lock ? "hidden" : "auto" })),
+  scroll: { x: 0, y: 0 },
+  setScroll: (scroll) => set(() => ({ scroll })),
 }));
 
 interface IModalState {

@@ -67,6 +67,7 @@ const textCSS = css({
   padding: "10px",
   borderRadius: "5px",
   backgroundColor: "rgba(0, 0, 0, 0.5)",
+  textAlign: "center",
 });
 
 export default AnimateText;
