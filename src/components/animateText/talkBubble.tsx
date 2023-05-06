@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 interface IProps {
   text: string;
   opposite?: boolean;
+  isSeperator?: boolean;
 }
 
 function TalkBubble(props: IProps) {
@@ -16,7 +17,10 @@ function TalkBubble(props: IProps) {
       exit={{ x: props.opposite ? -200 : 200, opacity: 0 }}
       css={[
         bubbleCSS,
-        { justifyContent: props.opposite ? "flex-start" : "flex-end" },
+        {
+          justifyContent: props.opposite ? "flex-start" : "flex-end",
+          marginTop: props.isSeperator ? "15px" : "5px",
+        },
       ]}
     >
       <p css={[textCSS, props.opposite ? youCSS : meCSS]}>{props.text}</p>
