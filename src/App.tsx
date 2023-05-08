@@ -7,6 +7,7 @@ import { useModalStore, useScrollStore, useWindowStore } from "./store";
 import { useEffect } from "react";
 import AboutMePage from "./pages/aboutMe";
 import { useScroll, useWindow } from "./lib/hooks";
+import ProjectsPage from "./pages/projects";
 import { Global, css } from "@emotion/react";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <MainPage />
       <AboutMePage />
       <SkillPage />
+      <ProjectsPage />
       <Background />
       <Global styles={globalCSS} />
     </>
