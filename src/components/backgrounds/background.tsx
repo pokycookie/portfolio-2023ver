@@ -5,6 +5,18 @@ import GooeyArea from "../gooeyEffect/gooeyArea";
 import BouncingBall from "./bouncingBall";
 import { _range } from "../../lib/basic";
 
+function Background() {
+  return (
+    <div css={backgroundCSS}>
+      <GooeyArea>
+        {_range(15).map((_, i) => {
+          return <BouncingBall key={i} />;
+        })}
+      </GooeyArea>
+    </div>
+  );
+}
+
 const backgroundCSS = css({
   position: "fixed",
   top: 0,
@@ -16,19 +28,5 @@ const backgroundCSS = css({
     "linear-gradient(109.6deg, rgba(61, 245, 167, 1) 11.2%, rgba(9, 111, 224, 1) 91.1%)",
   overflow: "hidden",
 });
-
-interface IProps {}
-
-function Background(props: IProps) {
-  return (
-    <div css={backgroundCSS}>
-      <GooeyArea>
-        {_range(15).map((_, i) => {
-          return <BouncingBall key={i} />;
-        })}
-      </GooeyArea>
-    </div>
-  );
-}
 
 export default Background;

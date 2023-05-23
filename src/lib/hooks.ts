@@ -18,16 +18,16 @@ export function useInterval(callback: () => void, delay: number | null) {
   }, [delay]);
 }
 
-export function useScroll(ref: React.RefObject<HTMLElement>) {
+export function useScroll(ref?: React.RefObject<HTMLElement>) {
   const [scroll, setScroll] = useState({ x: 0, y: 0 });
 
   const scrollHandler = useCallback(() => {
-    if (ref.current === null) setScroll({ x: window.scrollX, y: window.scrollY });
+    if (!ref || ref.current === null) setScroll({ x: window.scrollX, y: window.scrollY });
     else setScroll({ x: ref.current.scrollLeft, y: ref.current.scrollTop });
   }, [ref]);
 
   useEffect(() => {
-    if (ref.current === null) {
+    if (!ref || ref.current === null) {
       window.addEventListener("scroll", scrollHandler);
       return () => window.removeEventListener("scroll", scrollHandler);
     } else {

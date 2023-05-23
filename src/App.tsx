@@ -3,21 +3,21 @@
 import MainPage from "./pages/main";
 import SkillPage from "./pages/skills";
 import Background from "./components/backgrounds/background";
-import { useModalStore, useRefStore, useScrollStore, useWindowStore } from "./store";
-import { useEffect, useRef } from "react";
+import { useModalStore, useScrollStore, useWindowStore } from "./store";
+import { useEffect } from "react";
 import AboutMePage from "./pages/aboutMe";
 import { useScroll, useWindow } from "./lib/hooks";
+import ProjectsPage from "./pages/projects";
+import { Global, css } from "@emotion/react";
 
 function App() {
   const scrlLock = useScrollStore((state) => state.scrlLock);
   const setScrlLock = useScrollStore((state) => state.setScrlLock);
   const modal = useModalStore((state) => state.modalID);
-  const setApp = useRefStore((state) => state.setApp);
   const setScroll = useScrollStore((state) => state.setScroll);
   const [setWidth, setHeight] = useWindowStore((state) => [state.setWidth, state.setHeight]);
 
-  const appREF = useRef<HTMLDivElement>(null);
-  const scroll = useScroll(appREF);
+  const scroll = useScroll();
   const windowSize = useWindow();
 
   useEffect(() => {
@@ -34,18 +34,21 @@ function App() {
     setScrlLock(modal ? true : false);
   }, [modal, setScrlLock]);
 
-  // Set app ref
-  useEffect(() => {
-    setApp(appREF.current);
-  }, [appREF, setApp]);
+  const globalCSS = css`
+    body: {
+      overflow: ${scrlLock ? "hidden" : "auto"};
+    }
+  `;
 
   return (
-    <div className="App" ref={appREF} css={{ overflow: scrlLock }}>
+    <>
       <MainPage />
       <AboutMePage />
       <SkillPage />
+      <ProjectsPage />
       <Background />
-    </div>
+      <Global styles={globalCSS} />
+    </>
   );
 }
 

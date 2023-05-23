@@ -15,6 +15,7 @@ function TalkBubble(props: IProps) {
       initial={{ x: props.opposite ? -200 : 200, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: props.opposite ? -200 : 200, opacity: 0 }}
+      transition={{ delay: 0.1 }}
       css={[
         bubbleCSS,
         {
